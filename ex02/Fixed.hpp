@@ -10,8 +10,8 @@ class Fixed {
 
 	public :
 			Fixed();
-			Fixed(const Fixed &src);
-			Fixed &operator=(const Fixed &rhs);
+			Fixed( Fixed const &other);
+			Fixed &operator=( Fixed const &other);
 			Fixed(const int int_to_fixedpoint);
 			Fixed(const float float_to_fixedpoint);
 			~Fixed();
@@ -19,45 +19,40 @@ class Fixed {
 			void SetRawBits(int const raw);
 			int GetRawBits(void) const;
 			int ToInt(void) const;
-			int ToFloat(void) const;
+			float ToFloat(void) const;
 
 			//Comparison operators
-			bool operator>(const Fixed &src);
-			bool operator>=(const Fixed &src);
-			bool operator<=(const Fixed &src);
-			bool operator==(const Fixed &src);
-			bool operator!=(const Fixed &src);
+			bool operator>(const Fixed &other);
+			bool operator>=(const Fixed &other);
+			bool operator<(const Fixed &other);
+			bool operator<=(const Fixed &other);
+			bool operator==(const Fixed &other);
+			bool operator!=(const Fixed &other);
 
 			//Arithmetic operators
-			Fixed operator+(const Fixed &src);
-			Fixed operator-(const Fixed &src);
-			Fixed operator*(const Fixed &src);
-			Fixed operator/(const Fixed &src);
+			const Fixed operator+(const Fixed &other) const;
+			const Fixed operator-(const Fixed &other);
+			const Fixed operator*(const Fixed &other);
+			const Fixed operator/(const Fixed &other);
 
 			//Increment/Decrement operators
-			Fixed &operator++(int nb);
-			Fixed &operator--(int nb);
-			Fixed &operator+ (Fixed);
-			Fixed &operator- (Fixed);
+			Fixed &operator++();
+			Fixed operator++(int);
+			Fixed operator--(int);
+			Fixed &operator--();
 
-			static int			min(int &a, int &b);
-			static const int	&min(const int &a, const int &b);
-			// {
-			// 	if (a > b)
-			// 		return a;
-			// 	else
-			// 		return b;
-			// };
+			static Fixed		&min(Fixed &a, Fixed &b);
+			static const Fixed	&min(const Fixed &a, const Fixed &b);
 
-			static int			max(int &a, int &b);
-			static const int	&max(const int &a, const int &b);
+			static Fixed		&max(Fixed &a, Fixed &b);
+			static const Fixed	&max(const Fixed &a, const Fixed &b);
 
 	private :
 			int					_fixed_point_nb;
 			static const int	_nb_of_fract_bits = 8;
 };
 
-
+			// static Fixed tmp;
 			std::ostream &operator<<(std::ostream &o, Fixed const &nb);
 
 
